@@ -1,0 +1,24 @@
+.profile__edit {
+  min-width: 24px;
+  min-height: 24px;
+  border: 1px solid #FFF;
+  background: url(../../../images/button-edit.svg) no-repeat center;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.profile__edit:hover {
+  opacity: .6;
+}
+
+.profile__edit:focus {
+  outline: none;
+}
+
+@media (max-width: 960px) {
+  .profile__edit {
+    min-width: 18px;
+    min-height: 18px;
+    margin-left: 5px;
+  }
+}

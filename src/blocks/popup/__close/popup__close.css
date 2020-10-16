@@ -1,0 +1,29 @@
+.popup__close {
+  min-width: 40.7px;
+  min-height: 40.7px;
+  background: url(../../../images/button-add.svg) no-repeat center;
+  background-size: 40.7px 40.7px;
+  cursor: pointer;
+  position: absolute;
+  top: -37px;
+  right: -37px;
+  border: none;
+  transform: rotate(45deg);
+}
+
+.popup__close:hover {
+  opacity: .6;
+}
+
+.popup__close:focus {
+  outline: none;
+}
+
+@media (max-width: 550px) {
+  .popup__close {
+    min-width: 30px;
+    min-height: 30px;
+    top: -25px;
+    right: -25px;
+  }
+}

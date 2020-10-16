@@ -1,0 +1,10 @@
+.content__profile {
+  margin-top: 40px;
+  margin-bottom: 51px;
+}
+
+@media (max-width: 860px) {
+  .content__profile {
+    margin-bottom: 36px;
+  }
+}

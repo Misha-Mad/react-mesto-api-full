@@ -1,0 +1,13 @@
+.entrence__input {
+    width: 358px;
+    min-height: 17px;
+    background-color: #000;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #fff;
+    margin-bottom: 30px;
+    padding: 0 0 13px 0;
+}

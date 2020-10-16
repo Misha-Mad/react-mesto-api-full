@@ -1,0 +1,10 @@
+.popup__title_position {
+  margin: 34px 0 44px 36px;
+}
+
+
+@media (max-width: 550px) {
+  .popup__title_position {
+    margin: 20px 0 20px 36px;
+  }
+}

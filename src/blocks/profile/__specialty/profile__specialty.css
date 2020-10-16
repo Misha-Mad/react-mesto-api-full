@@ -1,0 +1,19 @@
+.profile__specialty {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 5px 0 0 0;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 960px) {
+  .profile__specialty {
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+    max-width: 250px;
+  }
+}

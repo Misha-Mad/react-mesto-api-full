@@ -1,0 +1,12 @@
+.popup__container_type_info {
+    width: 430px;
+    height: 330px;
+    align-items: center;
+}
+
+@media (max-width: 550px) {
+    .popup__container_type_info {
+        width: 380px;
+        height: 280px;
+    }
+}

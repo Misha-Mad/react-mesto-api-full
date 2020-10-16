@@ -1,0 +1,6 @@
+.popup__info {
+    width: 120px;
+    height: 120px;
+    background: url(../../../images/Error.svg) no-repeat center;
+    margin: 60px auto 0;
+}

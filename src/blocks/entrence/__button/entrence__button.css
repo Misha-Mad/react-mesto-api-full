@@ -1,0 +1,17 @@
+.entrence__button {
+    width: 358px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 2px;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000;
+    margin: auto 0 15px 0;
+    cursor: pointer;
+    border: none;
+}
+
+.entrence__button:hover {
+    opacity: .6;
+    transition: opacity .3s ease-in-out ;
+}

@@ -1,0 +1,9 @@
+@import url(./__container/card__container.css);
+@import url(./__image/card__image.css);
+@import url(./__description/card__description.css);
+@import url(./__name/card__name.css);
+@import url(./__like/card__like.css);
+@import url(./__like/_pressed/card__like_pressed.css);
+@import url(./__del/card__del.css);
+@import url(./__like-section/card__like-section.css);
+@import url(./__counter/card__counter.css);

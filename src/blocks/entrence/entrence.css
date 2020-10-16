@@ -1,0 +1,15 @@
+@import url(./__title/entrence__title.css);
+@import url(./__form/entrence__form.css);
+@import url(./__input/entrence__input.css);
+@import url(./__button/entrence__button.css);
+@import url(./__link/entrence__link.css);
+
+.entrence {
+    height: 80vh;
+}
+
+@media (max-height: 1050px) {
+    .entrence {
+        height: 70vh;
+    }
+}

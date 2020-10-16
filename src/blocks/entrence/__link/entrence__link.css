@@ -1,0 +1,9 @@
+.entrence__link {
+    text-decoration: none;
+    color: #fff;
+}
+
+.entrence__link:hover {
+    opacity: .6;
+    transition: opacity .3s ease-in-out ;
+}
