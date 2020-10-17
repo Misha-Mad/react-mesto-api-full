@@ -25,19 +25,24 @@ module.exports.getUserById = (req, res) => {
 
 module.exports.createUser = (req, res) => {
   const {
-    name = 'Юзернейм', about = 'Анонимус', avatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Anonymous_emblem.svg/1200px-Anonymous_emblem.svg.png', email, password,
+    email, password,
   } = req.body;
   if (!email || !password) {
     return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
   return bcrypt.hash(password, 10)
-    .then((hash) => Users.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash,
-    }))
+    .then((hash) => {
+      const name = 'Юзернейм';
+      const about = 'Анонимаус';
+      const avatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Anonymous_emblem.svg/1200px-Anonymous_emblem.svg.png';
+      Users.create({
+        name,
+        about,
+        avatar,
+        email,
+        password: hash,
+      });
+    })
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -63,31 +68,31 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.updateUser = (req, res) => {
-  const { name, about, avatar } = req.body;
+  const {name, about, avatar} = req.body;
   if (!name || !about || !avatar) {
-    return res.status(400).send({ message: 'Переданы некорректные данные' });
+    return res.status(400).send({message: 'Переданы некорректные данные'});
   }
-  return Users.findByIdAndUpdate(req.user._id, { name, about, avatar })
-    .then((user) => res.send({ data: user }))
+  return Users.findByIdAndUpdate(req.user._id, {name, about, avatar})
+    .then((user) => res.send({data: user}))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: 'Ошибка валидации' });
+        return res.status(400).send({message: 'Ошибка валидации'});
       }
-      return res.status(500).send({ message: 'Произошла ошибка' });
+      return res.status(500).send({message: 'Произошла ошибка'});
     });
 };
 
 module.exports.updateAvatar = (req, res) => {
-  const { avatar } = req.body;
+  const {avatar} = req.body;
   if (!avatar) {
-    return res.status(400).send({ message: 'Переданы некорректные данные' });
+    return res.status(400).send({message: 'Переданы некорректные данные'});
   }
-  return Users.findByIdAndUpdate(req.user._id, { avatar })
-    .then((user) => res.send({ data: user }))
+  return Users.findByIdAndUpdate(req.user._id, {avatar})
+    .then((user) => res.send({data: user}))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: 'Ошибка валидации ссылки' });
+        return res.status(400).send({message: 'Ошибка валидации ссылки'});
       }
-      return res.status(500).send({ message: 'Произошла ошибка' });
+      return res.status(500).send({message: 'Произошла ошибка'});
     });
 };
