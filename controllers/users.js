@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const Users = require('../models/user');
 
 module.exports.getUsers = (req, res) => {
@@ -22,17 +24,41 @@ module.exports.getUserById = (req, res) => {
 };
 
 module.exports.createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
-  if (!name || !about || !avatar) {
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
+  if (!name || !about || !avatar || !email || !password) {
     return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
-  return Users.create({ name, about, avatar })
+  return bcrypt.hash(password, 10)
+    .then((hash) => Users.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
+    }))
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Ошибка валидации' });
       }
       return res.status(500).send({ message: 'Произошла ошибка' });
+    });
+};
+
+module.exports.login = (req, res) => {
+  const { email, password } = req.body;
+  return Users.findUserByCredentials(email, password)
+    .then((user) => {
+      // eslint-disable-next-line no-undef
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+      res.send({ token });
+    })
+    .catch((err) => {
+      res
+        .status(401)
+        .send({ message: err.message });
     });
 };
 

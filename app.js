@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const { login, createUser } = require('./controllers/users');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -26,6 +28,8 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.json());
+app.post('/signin', login);
+app.post('/signup', createUser);
 app.use(usersRouter);
 app.use(cardsRouter);
 app.get('/*', (req, res) => {
