@@ -24,7 +24,6 @@ module.exports.getUserById = (req, res) => {
 };
 
 module.exports.createUser = (req, res) => {
-  console.log(req);
   const {
     password, email,
   } = req.body;
@@ -38,7 +37,7 @@ module.exports.createUser = (req, res) => {
         password: hash,
       });
     })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.set('Access-Control-Allow-Origin', 'https://www.zakharov.students.nomoreparties.co').send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Ошибка валидации' });
