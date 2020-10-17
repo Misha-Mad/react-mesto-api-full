@@ -25,9 +25,9 @@ module.exports.getUserById = (req, res) => {
 
 module.exports.createUser = (req, res) => {
   const {
-    name, about, avatar, email, password,
+    name = 'Юзернейм', about = 'Анонимус', avatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Anonymous_emblem.svg/1200px-Anonymous_emblem.svg.png', email, password,
   } = req.body;
-  if (!name || !about || !avatar || !email || !password) {
+  if (!email || !password) {
     return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
   return bcrypt.hash(password, 10)
