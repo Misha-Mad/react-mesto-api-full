@@ -24,6 +24,7 @@ module.exports.getUserById = (req, res) => {
 };
 
 module.exports.createUser = (req, res) => {
+  console.log(req);
   const {
     password, email,
   } = req.body;
