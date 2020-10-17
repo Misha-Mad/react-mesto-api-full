@@ -11,7 +11,7 @@ const { PORT = 3000 } = process.env;
 const app = express();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: 100,
 });
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
