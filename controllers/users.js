@@ -25,20 +25,14 @@ module.exports.getUserById = (req, res) => {
 
 module.exports.createUser = (req, res) => {
   const {
-    email, password,
+    password, email,
   } = req.body;
   if (!email || !password) {
     return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
   return bcrypt.hash(password, 10)
     .then((hash) => {
-      const name = 'Юзернейм';
-      const about = 'Анонимаус';
-      const avatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Anonymous_emblem.svg/1200px-Anonymous_emblem.svg.png';
       Users.create({
-        name,
-        about,
-        avatar,
         email,
         password: hash,
       });
