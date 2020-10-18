@@ -6,7 +6,7 @@ module.exports.getUser = (req, res) => {
   const userId = req.user._id;
   Users.findById(userId)
     .then((user) => {
-      res.send({ data: user });
+      res.send(user);
     })
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
@@ -14,7 +14,7 @@ module.exports.getUser = (req, res) => {
 module.exports.getUserById = (req, res) => {
   Users.findById(req.params.id)
     .orFail(new Error('NotValidId'))
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'CastError') {
         return res.status(400).send({ message: 'Неверные данные' });
@@ -46,7 +46,7 @@ module.exports.createUser = (req, res) => {
         password: hash,
       })
         .then((user) => {
-          res.send({ data: user });
+          res.send(user);
         })
         .catch((err) => {
           if (err.name === 'ValidationError') {
@@ -78,7 +78,7 @@ module.exports.updateUser = (req, res) => {
     return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
   return Users.findByIdAndUpdate(req.user._id, { name, about, avatar })
-    .then((user) => res.send({ ata: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Ошибка валидации' });
@@ -93,7 +93,7 @@ module.exports.updateAvatar = (req, res) => {
     return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
   return Users.findByIdAndUpdate(req.user._id, { avatar })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Ошибка валидации ссылки' });
