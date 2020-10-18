@@ -27,22 +27,30 @@ module.exports.createUser = (req, res) => {
   const {
     password, email,
   } = req.body;
+  const name = 'UserName';
+  const about = 'Anonymous';
+  const avatar = 'https://pm1.narvii.com/6135/7f4b2774dd8da1e299924a63fba29db5a4359be3_hq.jpg';
   if (!email || !password) {
     return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
   return bcrypt.hash(password, 10)
     .then((hash) => {
       Users.create({
+        name,
+        about,
+        avatar,
         email,
         password: hash,
-      });
-    })
-    .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: 'Ошибка валидации' });
-      }
-      return res.status(500).send({ message: 'Произошла ошибка' });
+      })
+        .then((user) => {
+          res.send({ data: user });
+        })
+        .catch((err) => {
+          if (err.name === 'ValidationError') {
+            return res.status(400).send({ message: 'Ошибка валидации' });
+          }
+          return res.status(500).send({ message: 'Произошла ошибка' });
+        });
     });
 };
 
