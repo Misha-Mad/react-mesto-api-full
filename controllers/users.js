@@ -2,9 +2,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Users = require('../models/user');
 
-module.exports.getUsers = (req, res) => {
-  Users.find({})
-    .then((users) => res.send({ data: users }))
+module.exports.getUser = (req, res) => {
+  const userId = req.user._id;
+  Users.find({ userId })
+    .then((user) => res.send({ data: user }))
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
