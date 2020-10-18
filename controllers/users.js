@@ -4,8 +4,10 @@ const Users = require('../models/user');
 
 module.exports.getUser = (req, res) => {
   const userId = req.user._id;
-  Users.find({ userId })
-    .then((user) => res.send({ data: user }))
+  Users.findById(userId)
+    .then((user) => {
+      res.send({ data: user });
+    })
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
