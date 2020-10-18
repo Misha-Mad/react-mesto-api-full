@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
       .send({ message: 'Необходима авторизация' });
   }
   const token = authorization.replace('Bearer ', '');
+  console.log(token);
   let payload;
   try {
     // eslint-disable-next-line no-undef
