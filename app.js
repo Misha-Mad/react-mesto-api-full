@@ -21,6 +21,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
+app.listen(PORT);
+
 app.use(cors());
 app.use(limiter);
 app.use(express.json());
@@ -31,5 +33,3 @@ app.use(cardsRouter);
 app.get('/*', (req, res) => {
   res.status(404).send(JSON.stringify({ message: 'Запрашиваемый ресурс не найден' }));
 });
-
-app.listen(PORT);
