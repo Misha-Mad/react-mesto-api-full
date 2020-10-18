@@ -62,31 +62,31 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.updateUser = (req, res) => {
-  const {name, about, avatar} = req.body;
+  const { name, about, avatar } = req.body;
   if (!name || !about || !avatar) {
-    return res.status(400).send({message: 'Переданы некорректные данные'});
+    return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
-  return Users.findByIdAndUpdate(req.user._id, {name, about, avatar})
-    .then((user) => res.send({data: user}))
+  return Users.findByIdAndUpdate(req.user._id, { name, about, avatar })
+    .then((user) => res.send({ ata: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({message: 'Ошибка валидации'});
+        return res.status(400).send({ message: 'Ошибка валидации' });
       }
-      return res.status(500).send({message: 'Произошла ошибка'});
+      return res.status(500).send({ message: 'Произошла ошибка' });
     });
 };
 
 module.exports.updateAvatar = (req, res) => {
-  const {avatar} = req.body;
+  const { avatar } = req.body;
   if (!avatar) {
-    return res.status(400).send({message: 'Переданы некорректные данные'});
+    return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
-  return Users.findByIdAndUpdate(req.user._id, {avatar})
-    .then((user) => res.send({data: user}))
+  return Users.findByIdAndUpdate(req.user._id, { avatar })
+    .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({message: 'Ошибка валидации ссылки'});
+        return res.status(400).send({ message: 'Ошибка валидации ссылки' });
       }
-      return res.status(500).send({message: 'Произошла ошибка'});
+      return res.status(500).send({ message: 'Произошла ошибка' });
     });
 };
