@@ -18,29 +18,28 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
-    // validate: {
-    //   validator(v) {
-    // eslint-disable-next-line max-len
-    //     const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi;
-    //     return v.match(regex);
-    //   },
-    //   message: 'Нерабочая ссылка',
+    validate: {
+      validator(v) {
+        const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi;
+        return v.match(regex);
+      },
+      message: 'Нерабочая ссылка',
+    },
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    // validate: {
-    //   validator(v) {
-    //     validator.isEmail(v);
-    //   },
-    // },
+    validate: {
+      validator(v) {
+        validator.isEmail(v);
+      },
+    },
   },
   password: {
     type: String,
     required: true,
     minlength: 5,
-    // },
   },
 });
 

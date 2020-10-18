@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
   let payload;
   try {
     // eslint-disable-next-line no-undef
-    payload = jwt.verify(token, JWT_SECRET);
+    payload = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
     return res
       .status(401)

@@ -59,7 +59,7 @@ module.exports.login = (req, res) => {
   return Users.findUserByCredentials(email, password)
     .then((user) => {
       // eslint-disable-next-line no-undef
-      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.send({ token });
     })
     .catch((err) => {
