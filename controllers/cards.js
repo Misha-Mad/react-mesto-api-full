@@ -2,7 +2,10 @@ const Cards = require('../models/card');
 
 module.exports.getCards = (req, res) => {
   Cards.find({})
-    .then((cards) => res.send(cards))
+    .then((cards) => {
+      const newCards = cards.reverse();
+      res.send(newCards);
+    })
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
