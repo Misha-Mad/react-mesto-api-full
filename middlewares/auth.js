@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
   } catch (err) {
     return res
       .status(401)
-      .send({ message: 'Необходима авторизация' });
+      .send({ message: `Необходима авторизация+ ${process.env.JWT_SECRET}` });
   }
   req.user = payload;
   next();
