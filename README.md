@@ -4,4 +4,6 @@
 
 https://github.com/Misha-Mad/react-mesto-auth - ссылка на репозиторий реакт приложения с авторизацией
 
+https://github.com/Misha-Mad/react-mesto-api-full - ссылка на репозиторий бекенда
+
 https://www.zakharov.students.nomoreparties.co - ссылка на сайт в Яндекс.Облаке.
