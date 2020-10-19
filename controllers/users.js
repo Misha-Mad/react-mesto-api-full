@@ -92,7 +92,13 @@ module.exports.updateAvatar = (req, res) => {
   if (!avatar) {
     return res.status(400).send({ message: 'Переданы некорректные данные' });
   }
-  return Users.findByIdAndUpdate(req.user._id, { avatar }, { returnNewDocument: true })
+  return Users.findByIdAndUpdate(req.user._id, { avatar }, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  })
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
