@@ -8,13 +8,14 @@ const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   max: 100,
-// });
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
@@ -24,8 +25,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 });
 
 app.use(cors());
-// app.use(limiter);
+app.use(limiter);
 app.use(express.json());
+app.use(requestLogger);
 
 app.post('/signin', login);
 app.post('/signup', createUser);
@@ -38,8 +40,9 @@ app.get('/*', (req, res) => {
   res.status(404).send(JSON.stringify({ message: 'Запрашиваемый ресурс не найден' }));
 });
 
-app.use(errors());
+app.use(errorLogger);
 
+app.use(errors());
 app.use((err, req, res) => {
   let { statusCode = 500, message } = err;
   if (err.name === 'CastError') {
