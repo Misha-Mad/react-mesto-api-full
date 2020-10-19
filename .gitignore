@@ -16,6 +16,3 @@ node_modules
 
 # Logs
 *.log
-
-# Env
-*.env
