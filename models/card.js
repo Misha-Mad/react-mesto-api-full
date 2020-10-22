@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -12,8 +13,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi;
-        return v.match(regex);
+        return validator.isURL(v);
       },
       message: 'Нерабочая ссылка',
     },
@@ -24,7 +24,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
   },
   likes: {
-    type: Array,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'user',
     default: [],
   },

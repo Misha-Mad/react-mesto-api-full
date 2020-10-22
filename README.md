@@ -3,7 +3,6 @@
 Пожалуйста, прикрепите в это описание ссылку на репозиторий с готовым React-приложением, использующим этот API и ссылку на сайт, размещенный на Яндекс.Облаке.
 
 https://github.com/Misha-Mad/react-mesto-auth - ссылка на репозиторий реакт приложения с авторизацией
-
 https://github.com/Misha-Mad/react-mesto-api-full - ссылка на репозиторий бекенда
 
 https://www.zakharov.students.nomoreparties.co - ссылка на сайт в Яндекс.Облаке.

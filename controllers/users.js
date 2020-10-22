@@ -62,8 +62,8 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return Users.findUserByCredentials(email, password)
     .then((user) => {
-      if (!user) {
-        throw new RegAuthError('Ошибка авторизации');
+      if (!user.email) {
+        throw new RegAuthError('Неправильные почта или пароль');
       }
       // eslint-disable-next-line no-undef
       const token = jwt.sign({ _id: user._id }, process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
@@ -73,11 +73,8 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name, about, avatar } = req.body;
-  if (!name || !about || !avatar) {
-    throw new BadRequestError('Переданы некорректные данные');
-  }
-  return Users.findByIdAndUpdate(req.user._id, { name, about, avatar }, { new: true })
+  const { name, about } = req.body;
+  return Users.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Такого пользователя не существует');
@@ -89,10 +86,7 @@ module.exports.updateUser = (req, res, next) => {
 
 module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  if (!avatar) {
-    throw new BadRequestError('Переданы некорректные данные');
-  }
-  return Users.findByIdAndUpdate(req.user._id, { avatar }, { new: true })
+  return Users.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Такого пользователя не существует');

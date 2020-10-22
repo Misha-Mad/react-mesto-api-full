@@ -20,8 +20,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi;
-        return v.match(regex);
+        return validator.isURL(v);
       },
       message: 'Нерабочая ссылка',
     },
@@ -34,12 +33,12 @@ const userSchema = new mongoose.Schema({
       validator(v) {
         return validator.isEmail(v);
       },
+      message: 'Неверный email',
     },
   },
   password: {
     type: String,
     required: true,
-    minlength: 5,
     select: false,
   },
 });
@@ -48,12 +47,12 @@ userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new Error('Неправильные почта или пароль'));
+        return new Error('Неправильные почта или пароль');
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return Promise.reject(new Error('Неправильные почта или пароль'));
+            return new Error('Неправильные почта или пароль');
           }
           return user;
         });
