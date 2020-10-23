@@ -5,6 +5,14 @@ const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
 const RegAuthError = require('../errors/reg-auth-err');
 
+module.exports.getUsers = (req, res, next) => {
+  Users.find({})
+    .then((users) => {
+      res.send({ data: users });
+    })
+    .catch(next);
+};
+
 module.exports.getUser = (req, res, next) => {
   const userId = req.user._id;
   Users.findById(userId)
@@ -14,7 +22,9 @@ module.exports.getUser = (req, res, next) => {
       }
       res.send(user);
     })
-    .catch(next);
+    .catch((err) => {
+      next(err);
+    });
 };
 
 module.exports.getUserById = (req, res, next) => {
