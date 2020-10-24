@@ -3,10 +3,9 @@ const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
 module.exports.getCards = (req, res, next) => {
-  Cards.find({})
+  Cards.find({}).sort({ createdAt: -1 })
     .then((cards) => {
-      const newCards = cards.reverse();
-      res.send(newCards);
+      res.send(cards);
     })
     .catch((err) => next(err));
 };
