@@ -57,12 +57,9 @@ app.use(errorLogger);
 
 app.use(errors());
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   let { statusCode = 500, message } = err;
-  if (err.message === 'NotValidId') {
-    statusCode = 404;
-    message = 'Такого пользователя не существует';
-  }
   if (err.name === 'ValidationError') {
     statusCode = 400;
     message = 'Ошибка валидации';
@@ -85,5 +82,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`Express server listening on port ${PORT}`);
 });

@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Users = require('../models/user');
-const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
 const RegAuthError = require('../errors/reg-auth-err');
 
@@ -29,7 +28,6 @@ module.exports.getUser = (req, res, next) => {
 
 module.exports.getUserById = (req, res, next) => {
   Users.findById(req.params.id)
-    .orFail(new Error('NotValidId'))
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Такого пользователя не существует');
@@ -46,9 +44,6 @@ module.exports.createUser = (req, res, next) => {
   const name = 'UserName';
   const about = 'Anonymous';
   const avatar = 'https://pm1.narvii.com/6135/7f4b2774dd8da1e299924a63fba29db5a4359be3_hq.jpg';
-  if (!email || !password) {
-    throw new BadRequestError('Переданы некорректные данные');
-  }
   return bcrypt.hash(password, 10)
     .then((hash) => {
       Users.create({
@@ -58,10 +53,7 @@ module.exports.createUser = (req, res, next) => {
         email,
         password: hash,
       })
-        .then((user) => {
-          if (!user) {
-            throw new BadRequestError('Ошибка валидации');
-          }
+        .then(() => {
           res.status(200).send({ message: 'Успешная регистрация' });
         })
         .catch(next);
